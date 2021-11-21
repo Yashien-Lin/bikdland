@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bikeland</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="Shortcut Icon"
+      type="image/x-icon"
+      class="icon"
+      href="image/logo_bike.svg"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="header">
+        <a class="logo" href="bike_page_index.html">
+          <img src="image/LOGO-Light.png" alt="" />
+        </a>
+        <div class="nav_btns">
+          <ul>
+            <li>
+              <a href="bike_page_index.html">
+                <img src="image/nav-bike.png" alt="" />
+                <span>找單車</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="image/nav-route.png" alt="" />
+                <span>找路線</span>
+              </a>
+            </li>
+            <li>
+              <a href="spot_page.html">
+                <img src="image/nav-spot.png" alt="" />
+                <span>找景點</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main_container">
+        <!-- 放地圖 -->
+        <div id="map"></div>
+
+        <div class="function-layer routeLayer">
+          <div class="left-list">
+            <div class="searchDiv">
+              <input
+                type="text"
+                class="searchBox"
+                name=""
+                id="searching_route"
+                placeholder="搜尋路線或鄰近地點"
+              />
+              <button class="magnifier_Icon">
+                <i class="fas fa-search"></i>
+              </button>
+              <button class="sorting_btn">
+                <i class="fas fa-sort-amount-down"></i>
+                排序
+              </button>
+            </div>
+            <hr style="margin-bottom: 0" />
+
+            <div class="routeContent">
+              <ul>
+                <li class="perRouteInfo">
+                  <div class="routeInfo_top">
+                    <h2 class="stationName">中正路(南側)</h2>
+                    <div class="locationCity">
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span>臺北市</span>
+                    </div>
+                  </div>
+                  <div class="routeInfo_body">
+                    <div class="start_box">
+                      <div class="startIcon">起</div>
+                      <div class="start_routeName">承德路5段</div>
+                    </div>
+                    <div class="end_box">
+                      <div class="endIcon">迄</div>
+                      <div class="end_routeName">雨農路</div>
+                    </div>
+                  </div>
+                  <div class="routeInfo_bottom">
+                    <div class="route_distance">
+                      <img src="image/route_grey.png" alt="" />
+                      <span>總長3.4公里</span>
+                    </div>
+                  </div>
+                  <hr />
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <a class="locate_route"></a>
+        </div>
+      </div>
+      <div class="footer"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
+<!-- <i class="fas fa-parking"></i> /*停車圖示*/
+<i class="fas fa-bicycle"></i> /*單車圖示*/
+<i class="fas fa-map-marker-alt"></i> /*地圖指標*/
+<i class="fas fa-route"></i> /*路線*/
+<i class="fas fa-umbrella-beach"></i> /*景點*/
+<i class="fas fa-crosshairs"></i> /*定位*/
+<i class="fas fa-search"></i> /*搜尋*/
+<i class="fas fa-sort-amount-down"></i> /*排序*/
+<i class="fas fa-globe-americas"></i> /*網站*/
+<i class="fas fa-phone-alt"></i> /*電話*/
+<i class="fas fa-clock"></i> /*時間*/
+<i class="fas fa-utensils"></i> /*餐廳*/
+<i class="fas fa-bars"></i> /*Menu*/ -->

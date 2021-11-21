@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bikeland</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="Shortcut Icon"
+      type="image/x-icon"
+      class="icon"
+      href="image/logo_bike.svg"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css"
+    />
+    <!-- <link
+      href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"
+    />
+    <link
+      href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"
+    /> -->
+
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <!-- <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script> -->
+    <!-- <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js.map"></script> -->
+    <!-- <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script> -->
+    <!-- <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js.map"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="header">
+        <a class="logo" href="#">
+          <img src="image/LOGO-Light.png" alt="" />
+        </a>
+        <div class="nav_btns">
+          <ul>
+            <li>
+              <a href="#">
+                <img src="image/nav-bike.png" alt="" />
+                <span>找單車</span>
+              </a>
+            </li>
+            <li>
+              <a href="route_page.html">
+                <img src="image/nav-route.png" alt="" />
+                <span>找路線</span>
+              </a>
+            </li>
+            <li>
+              <a href="spot_page.html">
+                <img src="image/nav-spot.png" alt="" />
+                <span>找景點</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main_container">
+        <!-- 放地圖 -->
+        <div id="map"></div>
+
+        <div class="function-layer">
+          <div class="left-list">
+            <div class="searchDiv">
+              <input
+                type="text"
+                class="searchBox"
+                name=""
+                id="searching"
+                placeholder="搜尋站點或鄰近地點"
+              />
+              <button class="magnifier_Icon">
+                <i class="fas fa-search"></i>
+              </button>
+
+              <button class="sorting_btn">
+                <i class="fas fa-sort-amount-down"></i>
+                排序
+              </button>
+            </div>
+            <hr class="divided_scroll" />
+
+            <div>
+              <ul class="stationContent">
+                <!-- <li class="perStationInfo">
+                  <h2 class="stationName">太原廣場</h2>
+                  <div class="rental_status">
+                    <div class="bikeQty_Box">
+                      <div>
+                        <i class="fas fa-bicycle"></i>
+                        <span>可租借</span>
+                      </div>
+                      <div class="bikeQty">3</div>
+                    </div>
+                    <div class="parkingQty_Box">
+                      <div class="parking_title">
+                        <img src="image/parking.png" alt="" />
+                        <span>可停車</span>
+                      </div>
+                      <div class="parkingQty">25</div>
+                    </div>
+                  </div>
+                  <div class="StationInfo_bottom">
+                    <div class="rentReturn_status">可借可還</div>
+                    <div class="distance">
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span>距離25公尺</span>
+                    </div>
+                  </div>
+                  <hr />
+                </li> -->
+              </ul>
+            </div>
+          </div>
+          <div class="searchType_btns">
+            <div class="find_bike searchType_slider">
+              <i class="fas fa-bicycle"></i>
+              <span>找單車</span>
+            </div>
+            <div class="find_parking">
+              <img src="image/parking.png" alt="" />
+              <!-- <img src="image/parking_white.png" alt="" /> -->
+              <span>可停車</span>
+            </div>
+          </div>
+          <a class="locate"></a>
+        </div>
+      </div>
+      <div class="footer"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
+<!-- <i class="fas fa-parking"></i> /*停車圖示*/
+<i class="fas fa-bicycle"></i> /*單車圖示*/
+<i class="fas fa-map-marker-alt"></i> /*地圖指標*/
+<i class="fas fa-route"></i> /*路線*/
+<i class="fas fa-umbrella-beach"></i> /*景點*/
+<i class="fas fa-crosshairs"></i> /*定位*/
+<i class="fas fa-search"></i> /*搜尋*/
+<i class="fas fa-sort-amount-down"></i> /*排序*/
+<i class="fas fa-globe-americas"></i> /*網站*/
+<i class="fas fa-phone-alt"></i> /*電話*/
+<i class="fas fa-clock"></i> /*時間*/
+<i class="fas fa-utensils"></i> /*餐廳*/
+<i class="fas fa-bars"></i> /*Menu*/ -->

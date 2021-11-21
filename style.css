@@ -1,0 +1,730 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 從此開始 */
+
+body {
+  font-family: sans-serif;
+  background: lightgray;
+}
+
+html,
+body,
+.wrap {
+  height: 100vh;
+}
+
+.main_container {
+  height: calc(100vh - 76px);
+}
+
+a {
+  cursor: pointer;
+}
+
+/* 去除a標籤的四種狀態預設樣式 */
+a,
+a:hover,
+a:visited,
+a:link,
+a:active {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+/* 去除button標籤的預設樣式 */
+button {
+  border: 0;
+  background: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.header {
+  height: 76px;
+  background: #738047;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 72px;
+}
+
+.logo {
+  height: 32px;
+}
+
+.nav_btns {
+  color: #738047;
+}
+
+.nav_btns a {
+  height: 36px;
+  border: 1px solid #a4b375;
+  border-radius: 8px;
+  padding: 8px 14px;
+  background: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.nav_btns img {
+  margin-right: 5px;
+}
+
+.nav_btns ul {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.main_container {
+  position: relative;
+}
+
+.left-list {
+  width: 425px;
+  padding: 28px 32px;
+  box-shadow: 4px 4px 20px rgba(118, 118, 118, 0.3);
+  border-radius: 8px;
+  background: #ffffff;
+  position: absolute;
+  left: 32px;
+  top: 36px;
+  z-index: 999;
+  height: 92%;
+  overflow: auto;
+}
+
+/* 捲軸寬度 */
+.left-list::-webkit-scrollbar {
+  background-color: #ffffff;
+  width: 5px;
+  /* height: 60px; */
+}
+
+/* 捲軸底色 */
+.left-list::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  background-color: #ffffff;
+  margin-top: 80px;
+}
+
+/* 捲軸本體顏色 */
+.left-list::-webkit-scrollbar-thumb {
+  background-color: #9a9a9a;
+}
+
+.divided_scroll {
+  margin: 0 0 1rem;
+}
+
+.searchDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+#searching {
+  padding: 10px 16px;
+  height: 36px;
+  background: #eeeeee;
+  border-radius: 8px;
+  border: 2px solid #a4b375;
+  width: 70%;
+  font-size: 13px;
+}
+
+.magnifier_Icon {
+  position: absolute;
+  color: #767676;
+  width: 20px;
+  right: 35%;
+}
+
+.sorting_btn {
+  background: #ffffff;
+  border: 1px solid #a4b375;
+  color: #738047;
+  padding: 8px 12px;
+  width: 79px;
+  margin: 0px 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.rental_status {
+  display: flex;
+  gap: 21px;
+  color: #474f2c;
+  font-weight: bold;
+}
+
+.stationName {
+  margin: 21px 12px 15px;
+  color: #474f2c;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.bikeQty_Box,
+.parkingQty_Box {
+  background: #dfe4ce;
+  border-radius: 8px;
+  padding: 8px 0;
+  text-align: center;
+  width: 170px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.limited_color {
+  background: #f7d4dd;
+  color: #8c3046;
+}
+
+.disable_color {
+  background: #eeeeee;
+  color: #9a9a9a;
+}
+
+.bikeQty,
+.parkingQty {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.parking_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parking_title img {
+  margin-right: 5px;
+  height: 14.62px;
+}
+
+.StationInfo_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0 15px;
+  font-weight: bold;
+}
+
+.rentReturn_status {
+  border: 1px solid #eabd8a;
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #c67a24;
+}
+
+.onlyRentOrReturn_color {
+  color: #e75578;
+}
+
+.noRentAndReturn_color {
+  color: #9a9a9a;
+}
+
+.searchType_btns {
+  padding: 8px 12px;
+  width: 276px;
+  height: 60px;
+  background: #ffffff;
+  box-shadow: 4px 4px 20px rgba(118, 118, 118, 0.3);
+  border-radius: 40px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+
+  position: absolute;
+  left: 477px;
+  top: 36px;
+  z-index: 999;
+}
+
+/* .locate {
+  position: absolute;
+  left: 765px;
+  top: 36px;
+  z-index: 999;
+}
+
+.locate_icon {
+  width: 60px;
+} */
+
+.locate {
+  position: absolute;
+  left: 751px;
+  top: 22px;
+  z-index: 999;
+  background-image: url("image/locate_default.svg");
+  background-size: cover;
+  background-position: center;
+  width: 96px;
+  height: 96px;
+}
+
+.locate:hover {
+  background-image: url("image/locate_hover.svg");
+  height: 105px;
+  top: 21px;
+}
+
+.find_parking {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #738047;
+  /* color: #ffffff; */
+  width: 124px;
+  height: 44px;
+}
+
+.find_bike {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 124px;
+  height: 44px;
+  color: #ffffff;
+  gap: 5px;
+}
+
+.searchType_slider {
+  background: #738047;
+  border-radius: 40px;
+  width: 124px;
+  height: 44px;
+}
+
+.distance {
+  color: #767676;
+}
+
+#map {
+  height: 100%;
+}
+
+/* route_page的css */
+
+.routeInfo_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.routeInfo_body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #474f2c;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.locationCity {
+  color: #9a9a9a;
+}
+
+#searching_route {
+  padding: 10px 16px;
+  height: 36px;
+  background: #eeeeee;
+  border-radius: 8px;
+  border: 2px solid #a4b375;
+  width: 70%;
+  font-size: 13px;
+}
+
+.start_box,
+.end_box {
+  display: flex;
+}
+
+.startIcon,
+.endIcon {
+  width: 39px;
+  height: 36px;
+  padding: 0 12px;
+  background: #dfe4ce;
+  border-radius: 8px;
+  margin: 0px 8px;
+  line-height: 36px;
+}
+
+.start_routeName,
+.end_routeName {
+  padding: 0 12px;
+  width: 306px;
+  height: 36px;
+  background: #dfe4ce;
+  border-radius: 8px;
+  line-height: 36px;
+}
+
+.routeInfo_bottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 15px 0 15px;
+  font-weight: bold;
+}
+
+.route_distance {
+  color: #767676;
+}
+
+.locate_route {
+  position: absolute;
+  left: 477px;
+  top: 22px;
+  z-index: 999;
+  background-image: url("image/locate_default.svg");
+  background-size: cover;
+  background-position: center;
+  width: 96px;
+  height: 96px;
+}
+
+.locate_route:hover {
+  background-image: url("image/locate_hover.svg");
+  height: 105px;
+  top: 21px;
+}
+
+/* spot_page的css */
+
+.perSpotInfo {
+  margin: 24px 0 8px;
+}
+
+.perTag {
+  height: 26px;
+  background: #738047;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 26px;
+  padding: 0 12px;
+}
+
+.spotTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spotName {
+  margin: 10px 0;
+  color: #474f2c;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.spotInfo_bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spotTags {
+  display: flex;
+  gap: 5px;
+}
+
+.spotImage_Div {
+  width: 361px;
+  height: 155px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.spotImage {
+  width: 361px;
+  height: 155px;
+  object-fit: cover;
+}
+
+.spotImage:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.earth_icon {
+  background-image: url("image/Web.svg");
+  background-size: cover;
+  background-position: center;
+  width: 26px;
+}
+
+.earth_icon:hover {
+  background-image: url("image/Web_hover.svg");
+}
+
+.earth_icon:focus {
+  background-image: url("image/Web_focus.svg");
+}
+
+/* 下方景點描述 */
+.describe-layer {
+  color: #767676;
+  z-index: 998;
+  position: absolute;
+  bottom: 0;
+  background-color: #ffffff;
+  box-shadow: 0px -4px 4px rgba(118, 118, 118, 0.3);
+  padding: 28px 36px 28px 482px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle {
+  visibility: hidden;
+  /* padding: 0;
+  height: 0; */
+  /* transition: all 2s ease-in-out; */
+}
+
+/* .closeBtn_toggle {
+  bottom: 0;
+} */
+
+.desc-closeBtn {
+  background-image: url(image/triangle.svg);
+  position: absolute;
+  width: 86px;
+  height: 26px;
+  left: 62%;
+  top: -25px;
+  /* bottom: 349px; */
+  background: #ffffff;
+  box-shadow: 0px -4px 4px rgba(118, 118, 118, 0.3);
+  border-radius: 6px 6px 0px 0px;
+  text-align: center;
+  line-height: 26px;
+  z-index: 999;
+}
+
+.desc_spotName {
+  font-size: 32px;
+  color: #474f2c;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.addr,
+.openTime,
+.phone {
+  font-size: 15px;
+}
+
+.openTime {
+  margin: 10px 0;
+}
+
+.spotDetails {
+  margin: 16px 0 6px;
+  line-height: 20px;
+  font-size: 0.75rem;
+}
+
+.descLayer-Image {
+  width: 276px;
+  height: 162px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.descImage {
+  width: 276px;
+  height: 162px;
+  object-fit: cover;
+}
+
+.descLayer-Info {
+  width: 62%;
+}
+
+/* 地圖 */
+.popUp {
+  font-size: 1.05rem;
+}
+
+.bikeLocateIcon {
+  color: #738047;
+}
+
+/* cluster */
+.marker-cluster-small {
+  background-color: rgba(181, 226, 140, 0.6);
+}
+.marker-cluster-small div {
+  background-color: #738047;
+  opacity: 0.6;
+}
+
+.marker-cluster-medium {
+  background-color: rgba(241, 211, 87, 0.6);
+}
+.marker-cluster-medium div {
+  background-color: rgba(218, 208, 171, 0.6);
+}
+
+.marker-cluster-large {
+  background-color: rgba(253, 156, 115, 0.6);
+}
+.marker-cluster-large div {
+  background-color: rgba(241, 128, 23, 0.6);
+}
+
+.marker-cluster {
+  background-clip: padding-box;
+  border-radius: 20px;
+}
+.marker-cluster div {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+
+  text-align: center;
+  border-radius: 15px;
+  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.marker-cluster span {
+  line-height: 30px;
+}
