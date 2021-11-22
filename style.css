@@ -684,6 +684,10 @@ button {
   font-size: 1.05rem;
 }
 
+.leaflet-popup-content {
+  font-size: 1rem;
+}
+
 .bikeLocateIcon {
   color: #738047;
 }
@@ -693,7 +697,7 @@ button {
   background-color: rgba(181, 226, 140, 0.6);
 }
 .marker-cluster-small div {
-  background-color: #738047;
+  background-color: rgba(110, 204, 57, 0.6);
   opacity: 0.6;
 }
 
@@ -711,20 +715,22 @@ button {
   background-color: rgba(241, 128, 23, 0.6);
 }
 
-.marker-cluster {
+.leaflet-pane .marker-cluster {
   background-clip: padding-box;
   border-radius: 20px;
+  width: 45px !important;
+  height: 45px !important;
 }
 .marker-cluster div {
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
-  margin-top: 5px;
-
+  width: 35px;
+  height: 35px;
+  margin: 5px;
   text-align: center;
   border-radius: 15px;
-  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font: 1.125rem "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: black;
 }
 .marker-cluster span {
-  line-height: 30px;
+  line-height: 35px;
 }

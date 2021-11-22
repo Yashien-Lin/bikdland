@@ -18,13 +18,15 @@ L.tileLayer(
 // 自己新增縮放icon到右上角
 L.control.zoom({ position: "topright" }).addTo(mymap);
 
+let latitude;
+let longitude;
 // 使用 navigator web api 獲取當下位置(經緯度)
 function reLocate() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function (position) {
-        const longitude = position.coords.longitude; // 經度
-        const latitude = position.coords.latitude; // 緯度
+        longitude = position.coords.longitude; // 經度
+        latitude = position.coords.latitude; // 緯度
         console.log("longitude:", longitude);
         console.log("latitude:", latitude);
 
@@ -58,7 +60,7 @@ function getStationData(longitude, latitude) {
     .then(function (res) {
       stationData = res.data;
       // console.log("stationData:", stationData); //[{},{}..數個租借站資料]
-      render();
+      // render();
       getStationStatus(longitude, latitude);
       // return stationData;
       console.log("stationData:", stationData);
@@ -99,10 +101,9 @@ function getStationStatus(longitude, latitude) {
           }
         });
       });
-      // console.log("newData:", newData); //[{AvailableRentBikes: 22, AvailableReturnBikes: 51, StationName: "YouBike1.0_捷運南勢角站(4號出口)"}]
+      console.log("newData:", newData); //[{AvailableRentBikes: 22, AvailableReturnBikes: 51, StationName: "YouBike1.0_捷運南勢角站(4號出口)"}]
       render(longitude, latitude);
-      // colorChange(longitude, latitude);
-      // rendorMarkers(newData);
+      rendorMarkers(newData);
     })
     .catch(function (err) {
       console.log("getStationStatus err:", err);
@@ -128,21 +129,24 @@ function GetAuthorizationHeader() {
   return { Authorization: Authorization, "X-Date": GMTString };
 }
 
+let cacheData = newData;
+
 //資料渲染
 const stationContent = document.querySelector(".stationContent");
-let str = "";
 let rentBikesQty;
 let returnBikesQty;
 let stationLat;
 let stationLon;
 
 function render(longitude, latitude) {
-  newData.forEach(function (item) {
+  let str = "";
+  cacheData.forEach(function (item) {
     rentBikesQty = item.AvailableRentBikes;
     returnBikesQty = item.AvailableReturnBikes;
     stationLat = item.PositionLat;
     stationLon = item.PositionLon;
-    distance = distanceCount(stationLat, stationLon, latitude, longitude);
+    distance = distanceCount(latitude, longitude, stationLat, stationLon);
+    console.log("render distance:", distance);
 
     str += `<li class="perStationInfo">
     <h2 class="stationName">${item.StationName}</h2>
@@ -177,15 +181,16 @@ function render(longitude, latitude) {
     // if (rentBikesQty <= 5 || returnBikesQty <= 5) {
     //   console.log(bikeQtyBox.innerHTML);
     // }
-    // colorChange(rentBikesQty, returnBikesQty);
   });
-  // console.log(str);
+  console.log("render str:", str);
+  console.log("render cacheData:", cacheData);
+
   stationContent.innerHTML = str;
-  colorChange();
+  statusChange();
 }
 
-//租借數量區塊變色
-function colorChange() {
+//租借字樣&顏色變更
+function statusChange() {
   const bikeQtyBox = document.querySelectorAll(".bikeQty_Box");
   const parkingQtyBox = document.querySelectorAll(".parkingQty_Box");
   // const rentalStatus = document.querySelectorAll(".rental_status");
@@ -262,6 +267,8 @@ function distanceCount(lat1, lon1, lat2, lon2) {
   if (d > 1) return Math.round(d) + "km";
   else if (d <= 1) return Math.round(d * 1000) + "m";
   return d;
+
+  // render(lat1, lon1, lat2, lon2);
   // console.log("d:", d);
 }
 
@@ -294,10 +301,10 @@ var bikeLocateIcon = L.divIcon({
 });
 
 // 標記當前位置Icon;
-// var marker = L.marker([24.9925386, 121.4998838], { icon: IamHere })
-//   .addTo(mymap)
-//   .bindPopup("<div class='popUp'>I'm here!</div>")
-//   .openPopup();
+var marker = L.marker([24.9925386, 121.4998838], { icon: IamHere })
+  .addTo(mymap)
+  .bindPopup("<div class='popUp'>You're here!</div>")
+  .openPopup();
 
 // // 標記單車&車位Icon
 // var marker = L.marker([24.992341940629295, 121.49975990873575], {
@@ -307,22 +314,28 @@ var bikeLocateIcon = L.divIcon({
 //   .bindPopup("<div class='popUp'>Bike is here!</div>");
 
 var markers = new L.MarkerClusterGroup().addTo(mymap);
-var newNewData = [
-  { name: "軟體園區", lat: 24.992341940629295, lng: 121.49975990873575 },
-  { name: "ikea", lat: 24.99304580593615, lng: 121.50010592072255 },
-];
+const searchBox = document.querySelector(".searchBox");
 
-newNewData.forEach((item) => {
-  markers.addLayer(
-    L.marker([item.lat, item.lng], {
-      icon: bikeLocateIcon,
-    })
-  );
-  // console.log(item.lat, item.lng);
-  mymap.addLayer(markers);
+function rendorMarkers() {
+  newData.forEach((item) => {
+    markers.addLayer(
+      L.marker([item.PositionLat, item.PositionLon], {
+        icon: bikeLocateIcon,
+      }).bindPopup(`${item.StationName}`)
+    );
+    // console.log(item.lat, item.lng);
+    mymap.addLayer(markers);
+  });
+}
+
+searchBox.addEventListener("change", function (e) {
+  const reg = new RegExp(e.target.value, "gi");
+  console.log(reg);
+  cacheData = newData.filter((item) => item.StationName.match(reg));
+  console.log("cacheData:", cacheData);
+  render();
+  // distanceCount(latitude, longitude, stationLat, stationLon);
 });
-// .bindPopup(`${item.StationName}`);
-// console.log("newData:", newData);
 
 // rendorMarkers(newData);
 // 景點detail下拉區塊
