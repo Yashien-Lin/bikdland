@@ -169,7 +169,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 72px;
+  padding: 20px 45px;
 }
 
 .logo {
@@ -181,17 +181,23 @@ button {
 }
 
 .nav_btns a {
-  height: 36px;
-  border: 1px solid #a4b375;
+  outline: 2px solid #3f4a1b;
   border-radius: 8px;
   padding: 8px 14px;
   background: #ffffff;
   font-weight: bold;
   font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
+.nav_btns a:hover {
+  outline: 3px solid #3f4a1b;
+  box-shadow: 3px 3px 0.15rem 0.15rem rgb(40 43 26 / 66%);
+}
 .nav_btns img {
-  margin-right: 5px;
+  line-height: 36px;
 }
 
 .nav_btns ul {
@@ -206,40 +212,48 @@ button {
 
 .left-list {
   width: 425px;
-  padding: 28px 32px;
-  box-shadow: 4px 4px 20px rgba(118, 118, 118, 0.3);
+  padding: 28px 15px 28px 32px;
+  /* box-shadow: 4px 4px 20px rgba(118, 118, 118, 0.3); */
+  box-shadow: 3px 3px 0.3rem 0.15rem rgb(40 43 26 / 66%);
   border-radius: 8px;
   background: #ffffff;
   position: absolute;
   left: 32px;
-  top: 36px;
+  top: 23px;
   z-index: 999;
   height: 92%;
+  /* overflow: auto; */
+}
+
+.stationContent_outer {
   overflow: auto;
+  height: 90%;
+  padding-right: 7px;
 }
 
 /* 捲軸寬度 */
-.left-list::-webkit-scrollbar {
+.stationContent_outer::-webkit-scrollbar {
   background-color: #ffffff;
   width: 5px;
   /* height: 60px; */
+  /* padding-left: 10px; */
 }
 
 /* 捲軸底色 */
-.left-list::-webkit-scrollbar-track {
+.stationContent_outer::-webkit-scrollbar-track {
   /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
   background-color: #ffffff;
-  margin-top: 80px;
+  margin-top: 3px;
 }
 
 /* 捲軸本體顏色 */
-.left-list::-webkit-scrollbar-thumb {
+.stationContent_outer::-webkit-scrollbar-thumb {
   background-color: #9a9a9a;
 }
 
-.divided_scroll {
+/* .divided_scroll {
   margin: 0 0 1rem;
-}
+} */
 
 .searchDiv {
   display: flex;
@@ -248,32 +262,76 @@ button {
   margin-bottom: 1rem;
 }
 
-#searching {
+.searchingStyle {
   padding: 10px 16px;
   height: 36px;
   background: #eeeeee;
   border-radius: 8px;
   border: 2px solid #a4b375;
+  color: #738047;
   width: 70%;
-  font-size: 13px;
+  font-size: 0.875rem;
+}
+.searchingStyle:focus {
+  outline: none;
+  box-shadow: 0 0 0.1rem 0.25rem rgb(160 197 38 / 60%);
 }
 
 .magnifier_Icon {
   position: absolute;
   color: #767676;
   width: 20px;
-  right: 35%;
+  right: 32%;
+}
+
+.dropDownList {
+  color: #738047;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .sorting_btn {
   background: #ffffff;
-  border: 1px solid #a4b375;
+  border: 2px solid #a4b375;
   color: #738047;
   padding: 8px 12px;
   width: 79px;
   margin: 0px 10px;
   border-radius: 8px;
-  font-size: 15px;
+  font-weight: bold;
+}
+
+.sorting_btn:hover {
+  background: #dfe4ce;
+}
+
+.sorting_list {
+  position: absolute;
+  background: #ffffff;
+  border: 2px solid #a4b375;
+  box-shadow: 4px 4px 20px rgba(118, 118, 118, 0.3);
+  border-radius: 8px;
+  margin: 0 10px;
+  z-index: 666;
+  display: none;
+  padding: 0 5px;
+}
+
+.showUp {
+  display: block;
+}
+
+.sorting_list li:nth-child(2) {
+  border-bottom: 1px solid #c5c5c5;
+  border-top: 1px solid #c5c5c5;
+}
+
+.sorting_list li {
+  padding: 11px 9px;
+}
+
+.sorting_list li:hover {
+  background: #dfe4ce;
   font-weight: bold;
 }
 
@@ -285,7 +343,7 @@ button {
 }
 
 .stationName {
-  margin: 21px 12px 15px;
+  padding: 21px 12px 15px;
   color: #474f2c;
   font-size: 22px;
   font-weight: bold;
@@ -347,11 +405,8 @@ button {
 }
 
 .onlyRentOrReturn_color {
+  border: 1px solid #f27594;
   color: #e75578;
-}
-
-.noRentAndReturn_color {
-  color: #9a9a9a;
 }
 
 .searchType_btns {
@@ -366,11 +421,19 @@ button {
   align-items: center;
   font-size: 18px;
   font-weight: bold;
-
   position: absolute;
   left: 477px;
   top: 36px;
   z-index: 999;
+  cursor: pointer;
+  outline: 3px solid #738047;
+}
+
+.searchType_btns:hover {
+  box-shadow: 0 0 0.15rem 0.45rem rgb(115 128 71 / 60%);
+}
+.searchType_btns:active {
+  box-shadow: 0 0 0.1rem 0.45rem rgb(115 128 71 / 76%);
 }
 
 /* .locate {
@@ -384,12 +447,21 @@ button {
   width: 60px;
 } */
 
+.perStationInfo {
+  padding: 0 5px;
+}
+
+.perStationInfo:hover {
+  cursor: pointer;
+  background: #dcee9f94;
+}
+
 .locate {
   position: absolute;
   left: 751px;
   top: 22px;
   z-index: 999;
-  background-image: url("image/locate_default.svg");
+  background-image: url("../image/locate_default.svg");
   background-size: cover;
   background-position: center;
   width: 96px;
@@ -397,9 +469,9 @@ button {
 }
 
 .locate:hover {
-  background-image: url("image/locate_hover.svg");
+  background-image: url("../image/locate_hover.svg");
   height: 105px;
-  top: 21px;
+  top: 28px;
 }
 
 .find_parking {
@@ -408,7 +480,6 @@ button {
   justify-content: center;
   gap: 5px;
   color: #738047;
-  /* color: #ffffff; */
   width: 124px;
   height: 44px;
 }
@@ -419,15 +490,39 @@ button {
   justify-content: center;
   width: 124px;
   height: 44px;
-  color: #ffffff;
   gap: 5px;
+  color: #738047;
 }
 
-.searchType_slider {
+.active {
+  color: #ffffff;
   background: #738047;
   border-radius: 40px;
+  transition: all 1s ease 0s;
+}
+
+/* .searchType_slider {
   width: 124px;
   height: 44px;
+  position: absolute;
+  z-index: -999;
+  left: 12px;
+}
+
+.slide_right {
+  transform: translateX(130px);
+}
+
+.slide_left {
+  transform: translateX(0px);
+} */
+
+.change_green {
+  color: #738047;
+}
+
+.change_white {
+  color: #ffffff;
 }
 
 .distance {
@@ -439,6 +534,15 @@ button {
 }
 
 /* route_page的css */
+
+.searchDiv_route {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 10px;
+}
 
 .routeInfo_top {
   display: flex;
@@ -459,14 +563,29 @@ button {
   color: #9a9a9a;
 }
 
-#searching_route {
-  padding: 10px 16px;
-  height: 36px;
+.searching_route {
+  padding: 5px 16px;
+  height: 45px;
   background: #eeeeee;
   border-radius: 8px;
   border: 2px solid #a4b375;
   width: 70%;
-  font-size: 13px;
+  font-size: 14px;
+  width: 90%;
+  font-weight: bold;
+  color: #496000;
+}
+
+.hr-style {
+  margin: 1rem 11px 0 0;
+}
+
+.routeName {
+  margin: 21px 12px 15px;
+  color: #474f2c;
+  font-size: 22px;
+  font-weight: bold;
+  max-width: 75%;
 }
 
 .start_box,
@@ -512,7 +631,7 @@ button {
   left: 477px;
   top: 22px;
   z-index: 999;
-  background-image: url("image/locate_default.svg");
+  background-image: url("../image/locate_default.svg");
   background-size: cover;
   background-position: center;
   width: 96px;
@@ -520,9 +639,9 @@ button {
 }
 
 .locate_route:hover {
-  background-image: url("image/locate_hover.svg");
+  background-image: url("../image/locate_hover.svg");
   height: 105px;
-  top: 21px;
+  top: 28px;
 }
 
 /* spot_page的css */
@@ -682,14 +801,133 @@ button {
 /* 地圖 */
 .popUp {
   font-size: 1.05rem;
+  text-align: center;
 }
 
 .leaflet-popup-content {
   font-size: 1rem;
+  margin: 13px 19px;
+  /* width: 344px; */
+  width: 100%;
 }
 
-.bikeLocateIcon {
+.leaflet-container a.leaflet-popup-close-button {
+  top: 5px !important;
+  right: 5px !important;
+}
+
+.bikeIcon {
+  width: 100%;
+}
+
+.bikeIconNum {
+  left: 45%;
+  bottom: 3px;
+  font-size: 22px;
+  position: absolute;
+  font-weight: bold;
   color: #738047;
+  transform: translate(-50%, -50%);
+}
+
+.noRentAndReturn_color {
+  color: #9a9a9a;
+  border: 1px solid #c5c5c5;
+}
+
+.colorLimited {
+  color: #e75578;
+}
+
+.colorDisabled {
+  color: #9a9a9a;
+}
+
+/* .leaflet-popup leaflet-zoom-animated {
+  bottom: 42px;
+  left: -97px;
+} */
+
+.leaflet-popup {
+  /* background: #ffffff;
+  border: 2px solid #a4b375; */
+  box-shadow: 4px 4px 20px rgba(118, 118, 118, 0.3);
+  /* border-radius: 8px; */
+}
+
+.leaflet-popup-content-wrapper {
+  border: 4px solid #a4b375;
+  box-sizing: border-box;
+  border-radius: 8px !important;
+}
+
+.leaflet-popup-tip {
+  border-right: 4px solid #a4b375;
+  border-bottom: 4px solid #a4b375;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  box-shadow: none !important;
+}
+
+.markInfoTitle {
+  color: #474f2c;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.leaflet-popup-content .markInfoTitle {
+  margin: 8px 0;
+}
+
+.leaflet-popup-tip-container {
+  overflow: unset !important;
+  bottom: -34%x;
+}
+
+.markInfoBody {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.numInfos {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.numLabel {
+  background: #dfe4ce;
+  padding: 7px 12px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  line-height: 20px;
+  font-weight: bold;
+  border-radius: 4px;
+  color: #474f2c;
+}
+
+.numLabel img {
+  width: 15px;
+}
+
+.distanceInfo {
+  color: #767676;
+}
+
+.labelColorDisabled {
+  background: #eeeeee;
+  color: #9a9a9a;
+}
+
+.labelColorLimited {
+  background: #f7d4dd;
+  color: #bc3253;
 }
 
 /* cluster */
@@ -733,4 +971,9 @@ button {
 }
 .marker-cluster span {
   line-height: 35px;
+}
+
+.js-perRouteInfo:hover {
+  cursor: pointer;
+  background: #dcee9f94;
 }

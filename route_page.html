@@ -17,17 +17,14 @@
       integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
       crossorigin="anonymous"
     ></script>
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"
-    ></script>
-    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="assets/style/style.css" />
 
     <link
       rel="Shortcut Icon"
       type="image/x-icon"
       class="icon"
-      href="image/logo_bike.svg"
+      href="assets/image/logo_bike.svg"
     />
     <link
       rel="stylesheet"
@@ -40,32 +37,51 @@
       integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
       crossorigin=""
     ></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css"
+    />
+
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/wicket/1.3.8/wicket.min.js"
+      integrity="sha512-aaiN+QIXD0N9Id865vSDEfttZJV9v8ZGh7jXMnYI2zbZhkSYOulS4IH0u4pC61/KXT20UedYzL5xi5siIg6mlw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div class="wrap">
       <div class="header">
         <a class="logo" href="index.html">
-          <img src="image/LOGO-Light.png" alt="" />
+          <img src="assets/image/LOGO-Light.png" alt="" />
         </a>
         <div class="nav_btns">
           <ul>
             <li>
               <a href="index.html">
-                <img src="image/nav-bike.png" alt="" />
+                <img src="assets/image/nav-bike.svg" alt="" />
                 <span>找單車</span>
               </a>
             </li>
             <li>
               <a href="#">
-                <img src="image/nav-route.png" alt="" />
+                <img src="assets/image/nav-route.svg" alt="" />
                 <span>找路線</span>
-              </a>
-            </li>
-            <li>
-              <a href="spot_page.html">
-                <img src="image/nav-spot.png" alt="" />
-                <span>找景點</span>
               </a>
             </li>
           </ul>
@@ -77,53 +93,41 @@
 
         <div class="function-layer routeLayer">
           <div class="left-list">
-            <div class="searchDiv">
-              <input
-                type="text"
-                class="searchBox"
-                name=""
-                id="searching_route"
-                placeholder="搜尋路線或鄰近地點"
-              />
-              <button class="magnifier_Icon">
-                <i class="fas fa-search"></i>
-              </button>
-              <button class="sorting_btn">
-                <i class="fas fa-sort-amount-down"></i>
-                排序
-              </button>
+            <div class="searchDiv_route">
+              <select class="searching_route js-searchCity">
+                <option selected disabled>請選擇縣市</option>
+                <option value="Keelung">基隆市</option>
+                <option value="Taipei">臺北市</option>
+                <option value="NewTaipei">新北市</option>
+                <option value="Taoyuan">桃園市</option>
+                <option value="HsinchuCounty">新竹縣</option>
+                <option value="MiaoliCounty">苗栗縣</option>
+                <option value="Taichung">臺中市</option>
+                <option value="ChanghuaCounty">彰化縣</option>
+                <option value="NantouCounty">南投縣</option>
+                <option value="YunlinCounty">雲林縣</option>
+                <option value="Chiayi">嘉義市</option>
+                <option value="ChiayiCounty">嘉義縣</option>
+                <option value="Tainan">臺南市</option>
+                <option value="Kaohsiung">高雄市</option>
+                <option value="PingtungCounty">屏東縣</option>
+                <option value="TaitungCounty">臺東縣</option>
+                <option value="HualienCounty">花蓮縣</option>
+                <option value="YilanCounty">宜蘭縣</option>
+                <option value="PenghuCounty">澎湖縣</option>
+                <option value="KinmenCounty">金門縣</option>
+              </select>
+              <select
+                class="searching_route js-searchRoute"
+                style="display: none"
+              >
+                <option>請選擇路線</option>
+              </select>
             </div>
-            <hr style="margin-bottom: 0" />
+            <hr class="hr-style" />
 
-            <div class="routeContent">
-              <ul>
-                <li class="perRouteInfo">
-                  <div class="routeInfo_top">
-                    <h2 class="stationName">中正路(南側)</h2>
-                    <div class="locationCity">
-                      <i class="fas fa-map-marker-alt"></i>
-                      <span>臺北市</span>
-                    </div>
-                  </div>
-                  <div class="routeInfo_body">
-                    <div class="start_box">
-                      <div class="startIcon">起</div>
-                      <div class="start_routeName">承德路5段</div>
-                    </div>
-                    <div class="end_box">
-                      <div class="endIcon">迄</div>
-                      <div class="end_routeName">雨農路</div>
-                    </div>
-                  </div>
-                  <div class="routeInfo_bottom">
-                    <div class="route_distance">
-                      <img src="image/route_grey.png" alt="" />
-                      <span>總長3.4公里</span>
-                    </div>
-                  </div>
-                  <hr />
-                </li>
-              </ul>
+            <div class="stationContent_outer">
+              <ul class="js-routeContent"></ul>
             </div>
           </div>
 
@@ -133,20 +137,6 @@
       <div class="footer"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="assets/script/route_script.js"></script>
   </body>
 </html>
-
-<!-- <i class="fas fa-parking"></i> /*停車圖示*/
-<i class="fas fa-bicycle"></i> /*單車圖示*/
-<i class="fas fa-map-marker-alt"></i> /*地圖指標*/
-<i class="fas fa-route"></i> /*路線*/
-<i class="fas fa-umbrella-beach"></i> /*景點*/
-<i class="fas fa-crosshairs"></i> /*定位*/
-<i class="fas fa-search"></i> /*搜尋*/
-<i class="fas fa-sort-amount-down"></i> /*排序*/
-<i class="fas fa-globe-americas"></i> /*網站*/
-<i class="fas fa-phone-alt"></i> /*電話*/
-<i class="fas fa-clock"></i> /*時間*/
-<i class="fas fa-utensils"></i> /*餐廳*/
-<i class="fas fa-bars"></i> /*Menu*/ -->
