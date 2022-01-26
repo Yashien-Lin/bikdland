@@ -16,28 +16,25 @@ L.tileLayer(
   }
 ).addTo(mymap);
 
-// 自己新增縮放icon到右上角
+// 新增縮放icon到右上角
 L.control.zoom({ position: "topright" }).addTo(mymap);
 
-// 使用 navigator web api 獲取當下位置(經緯度)
+// navigator web api 獲取當下經緯度
 let latitude;
 let longitude;
 function reLocate() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function (position) {
-        longitude = position.coords.longitude; // 經度
-        latitude = position.coords.latitude; // 緯度
-        console.log("longitude:", longitude);
-        console.log("latitude:", latitude);
+        longitude = position.coords.longitude;
+        latitude = position.coords.latitude;
 
         // 初始 view 的位置
         mymap.setView([latitude, longitude], 15);
-        // 將經緯度當作參數傳給 getData 執行
+
         getStationData(longitude, latitude);
         NowPosition(longitude, latitude);
       },
-      // 錯誤訊息
       function (e) {
         const msg = e.code;
         const dd = e.message;
@@ -61,11 +58,7 @@ function getStationData(longitude, latitude) {
   })
     .then(function (res) {
       stationData = res.data;
-      // console.log("stationData:", stationData); //[{},{}..數個租借站資料]
-      // render();
       getStationStatus(longitude, latitude);
-      // return stationData;
-      // console.log("stationData:", stationData);
     })
     .catch(function (err) {
       console.log(err);
@@ -82,19 +75,11 @@ function getStationStatus(longitude, latitude) {
   axios({ method: "get", url: url, headers: GetAuthorizationHeader() })
     .then(function (res) {
       rentalData = res.data;
-      // console.log("rentalData:", rentalData); //[{},{}..數個即時車位資料]
 
-      // 試試forEach方式:
-      // stationData.forEach(function (item) {
-      //   if (item.StationUID == "NWT1125") {
-      //     console.log(item.StationName);
-      //   }
-      // });
       newData = [];
       stationData.forEach(function (x) {
         rentalData.forEach(function (y) {
           if (x.StationUID == y.StationUID) {
-            // console.log([y.AvailableRentBikes, y.AvailableReturnBikes]);
             let obj = {};
             obj.StationName = x.StationName.Zh_tw;
             obj.AvailableRentBikes = y.AvailableRentBikes;
@@ -110,21 +95,17 @@ function getStationStatus(longitude, latitude) {
 
             obj.distance = distance;
             newData.push(obj);
-            // console.log("obj:", obj);
           }
         });
       });
 
       //預設排序: 小=>大
       newData.sort(function (a, b) {
-        // sortType = 1;
         return parseInt(a.distance) - parseInt(b.distance);
       });
 
       cacheData = newData;
-      // console.log("newData_1:", newData); //[{AvailableRentBikes: 22, AvailableReturnBikes: 51, StationName: "YouBike1.0_捷運南勢角站(4號出口)"}]
       render();
-      // rendorMarkers();
     })
     .catch(function (err) {
       console.log("getStationStatus err:", err);
@@ -150,8 +131,6 @@ function GetAuthorizationHeader() {
   return { Authorization: Authorization, "X-Date": GMTString };
 }
 
-// let cacheData = newData;
-
 //資料渲染
 const stationContent = document.querySelector(".stationContent");
 let rentBikesQty;
@@ -160,11 +139,8 @@ let stationLat;
 let stationLon;
 
 function render() {
-  //////////增加這段Start
   var markersLayer = new L.MarkerClusterGroup().addTo(mymap);
   markersLayer.clearLayers();
-  console.log(markersLayer);
-  //////////增加這段End
 
   let str = "";
   cacheData.forEach(function (item) {
@@ -173,7 +149,7 @@ function render() {
     stationLat = item.PositionLat;
     stationLon = item.PositionLon;
     distance = item.distance;
-    // console.log(item);
+
     str += `<li class="perStationInfo js-perStationInfo" data-geo="${item.PositionLat},${item.PositionLon}">
     <h2 class="stationName">${item.StationName}</h2>
     <div class="rental_status">
@@ -202,12 +178,6 @@ function render() {
     <hr style="margin:0"/>
     </li>`;
 
-    // const bikeQtyBox = document.querySelector(".bikeQty_Box");
-    // const parkingQtyBox = document.querySelector(".parkingQty_Box");
-    // if (rentBikesQty <= 5 || returnBikesQty <= 5) {
-    //   console.log(bikeQtyBox.innerHTML);
-    // }
-
     rendorMarkers(
       item.PositionLat,
       item.PositionLon,
@@ -219,8 +189,6 @@ function render() {
       markersLayer
     );
   });
-  // console.log("render str:", str);
-  // console.log("render cacheData:", cacheData);
 
   stationContent.innerHTML = str;
   statusChange();
@@ -231,18 +199,15 @@ function render() {
 function statusChange() {
   const bikeQtyBox = document.querySelectorAll(".bikeQty_Box");
   const parkingQtyBox = document.querySelectorAll(".parkingQty_Box");
-  // const rentalStatus = document.querySelectorAll(".rental_status");
   const perStationInfo = document.querySelectorAll(".js-perStationInfo");
 
   //可借車區塊
   bikeQtyBox.forEach((item) => {
     const bikeQty = item.querySelector(".bikeQty");
-    // console.log(bikeQty)
+
     if (bikeQty.textContent == 0) {
       item.classList.add("disable_color");
-      // console.log("item:", item);
     } else if (bikeQty.textContent <= 5) {
-      // console.log("item:", item);
       item.classList.add("limited_color");
     }
   });
@@ -251,14 +216,10 @@ function statusChange() {
   parkingQtyBox.forEach((item) => {
     const parkingQty = item.querySelector(".parkingQty");
     const parkingIcon = item.querySelector("img");
-    // console.log(parkingQty_Box)
     if (parkingQty.textContent == 0) {
       item.classList.add("disable_color");
       parkingIcon.src = "assets/image/park_Disabled.svg";
-
-      // console.log("item:", item);
     } else if (parkingQty.textContent <= 5) {
-      // console.log("item:", item);
       item.classList.add("limited_color");
       parkingIcon.src = "assets/image/park_Limited_dark.svg";
     }
@@ -284,8 +245,6 @@ function statusChange() {
       rentReturnStatus.textContent = "可借可還";
     }
     count += 1;
-    // console.log(str);
-    // console.log("bikeQty:", bikeQty, "parkingQty:", parkingQty);
   });
 }
 
@@ -296,8 +255,6 @@ function bindStationInfo() {
     item.addEventListener("click", function () {
       pos = item.dataset.geo.split(","); ///到這裡(轉為經緯度)
       mymap.setView(pos, 20);
-      // console.log(lat, lon);
-      // console.log("testttt!:", pos);
     });
   });
 }
@@ -318,25 +275,19 @@ function distanceCount(lat1, lon1, lat2, lon2) {
   if (d > 1) return Math.round(d) + "km";
   else if (d <= 1) return Math.round(d * 1000) + "m";
   return d;
-
-  // render(lat1, lon1, lat2, lon2);
-  // console.log("d:", d);
 }
 
 //按下定位重新定位
 const locateBtn = document.querySelector(".locate");
-
 locateBtn.addEventListener("click", function (e) {
   // 重新設定 view 的位置
   mymap.setView([latitude, longitude], 18);
 });
 
 var myMarker;
-
 function NowPosition(longitude, latitude) {
   //myMarker若有資料，就remove，否則會一直疊上去
   if (myMarker) {
-    console.log("myMarker:", myMarker);
     mymap.removeLayer(myMarker);
   }
 
@@ -369,18 +320,11 @@ function rendorMarkers(
   searchType,
   markersLayer
 ) {
-  //////////原本這段Start
   // 新增一個空的圖層放markers
   var markersLayer = new L.MarkerClusterGroup().addTo(mymap);
   markersLayer.clearLayers();
-  //////////End
-  // console.log("rendorMarkers cacheData:", cacheData);
 
-  // cacheData.forEach((item) => {
   //單車&車位的Icon樣式
-  console.log("searchType:", searchType);
-  // console.log(availableRentBikes);
-
   let markerNum;
   let markerColor = "Default";
   let numColor;
@@ -399,7 +343,6 @@ function rendorMarkers(
     }
   } else {
     markerNum = availableReturnBikes;
-    console.log(markerNum);
     if (availableReturnBikes == 0) {
       markerColor = "Disabled";
       numColor = "colorDisabled";
@@ -422,7 +365,6 @@ function rendorMarkers(
   });
 
   // 標記單車&車位Icon
-
   if (availableRentBikes == 0) {
     rentColor = "labelColorDisabled";
     iconColor = "Disabled";
@@ -468,16 +410,14 @@ function rendorMarkers(
       </div>`
     )
   );
-  // });
+
   mymap.addLayer(markersLayer);
 }
 
 const searchBox = document.querySelector(".js-searchBox");
 searchBox.addEventListener("change", function (e) {
   const reg = new RegExp(e.target.value, "gi");
-  console.log(reg);
   cacheData = newData.filter((item) => item.StationName.match(reg));
-  console.log("cacheData:", cacheData);
   render();
 });
 
@@ -495,10 +435,6 @@ sortingList.addEventListener("click", function (e) {
   sortType = e.target.dataset.sort;
   sortingList.classList.toggle("showUp");
 
-  console.log("sortingList e:", e);
-
-  // console.log("sortType:", sortType);
-
   if (sortType == "returnNum") {
     cacheData.sort(function (a, b) {
       return (
@@ -515,42 +451,8 @@ sortingList.addEventListener("click", function (e) {
     });
   }
 
-  // if (sortType == 1) {
-  //   cacheData.sort(function (a, b) {
-  //     sortType = -1;
-  //     return parseInt(b.distance) - parseInt(a.distance);
-  //   });
-  // } else {
-  //   sortType = 1;
-  //   cacheData.sort(function (a, b) {
-  //     return parseInt(a.distance) - parseInt(b.distance);
-  //   });
-  // }
-
-  console.log("sorting:", cacheData);
   render();
 });
-
-// rendorMarkers(newData);
-// 景點detail下拉區塊
-// let closeBtn = document.querySelector(".desc-closeBtn");
-// let describeLayer = document.querySelector(".describe-layer");
-// let descLayerInfo = document.querySelector(".descLayer-Info");
-// let descLayerImage = document.querySelector(".descLayer-Image");
-
-// let closeBefore = window.getComputedStyle(closeBtn, "::before");
-
-// closeBtn.addEventListener("click", function () {
-//   describeLayer.classList.toggle("toggle");
-//   descLayerInfo.classList.toggle("toggle");
-// });
-
-// $(document).ready(function () {
-//   $(".desc-closeBtn").click(function () {
-//     $(".describe-layer").slideToggle("500");
-//     $(".desc-closeBtn").css("bottom", "0");
-//   });
-// });
 
 //找單車&找車位切換
 const find_bike_btn = document.querySelector(".find_bike");
@@ -567,10 +469,8 @@ find_parking_btn.addEventListener("click", function (e) {
   while (!node.dataset.status) {
     node = node.parentNode;
   }
-  // console.log("node:", node);
 
   searchType = node.dataset.status;
-  console.log(searchType); //return
   render();
 });
 
@@ -582,11 +482,9 @@ find_bike_btn.addEventListener("click", function (e) {
   find_bike_btn.classList.add("active");
   find_parking_btn.classList.remove("active");
   let node = e.target;
-  // console.log("node:", node); // <span>找單車</span>
   while (!node.dataset.status) {
     node = node.parentNode;
   }
   searchType = node.dataset.status;
-  console.log(searchType); // rent
   render();
 });

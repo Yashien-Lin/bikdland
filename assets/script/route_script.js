@@ -18,7 +18,7 @@ L.tileLayer(
   }
 ).addTo(mymap);
 
-// 自己新增縮放icon到右上角
+// 新增縮放icon到右上角
 L.control.zoom({ position: "topright" }).addTo(mymap);
 
 // navigator web api 獲取當下經緯度
@@ -30,8 +30,6 @@ function reLocate() {
       function (position) {
         longitude = position.coords.longitude;
         latitude = position.coords.latitude;
-        console.log("longitude:", longitude);
-        console.log("latitude:", latitude);
 
         NowPosition(longitude, latitude);
         getNowCity(longitude, latitude);
@@ -53,7 +51,7 @@ let userCity;
 function getNowCity(longitude, latitude) {
   axios
     .get(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en-US&key=AIzaSyCNlSZcyD0LUbik_1bV-ubs_yvj8_eolrw`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en-US&key=${api_key}`
     )
     .then((res) => {
       let data = res.data.results;
@@ -120,7 +118,6 @@ function getRouteData(selectedCity) {
   })
     .then((res) => {
       routeData = res.data;
-      console.log(routeData);
 
       render();
       singleRoute();
@@ -201,7 +198,6 @@ function polyLine(geo) {
   const wicket = new Wkt.Wkt();
   wicket.read(geo);
   const geojsonFeature = wicket.toJson();
-  console.log("geojsonFeature:", geojsonFeature);
 
   const myStyle = {
     color: "#E75578",
@@ -233,7 +229,6 @@ function singleRoute() {
         }
       });
 
-      console.log(selectedGeo);
       polyLine(selectedGeo);
     });
   });
